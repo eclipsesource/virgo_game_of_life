@@ -3,8 +3,5 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                       http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd">
 
-<!-- TODO task 02.3 expose JavaScript backed Jenova bean as OSGi service and verify result via OSGi console-->
-<!-- 
-	<osgi:service ref="" interface="" />
- -->
+	<osgi:service ref="jenova" interface="com.eclipsesource.examples.gol.api.GameOfLife" />
 </beans>
