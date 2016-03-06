@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:lang="http://www.springframework.org/schema/lang"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+				http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+
+<!-- 
+	TODO task 02.1 add id 'jenova' and specify the matching Java interface
+ -->
+	<lang:std id="" engine="nashorn" script-interfaces="">
+		<lang:inline-script>
+<!-- 
+<![CDATA[
+function next(foo) {
+	// mapping of some Java byte[][] to JS array
+	var board = []
+	for(var i = 0; i < foo.length; i++) {
+		var row = [];
+		for(var j = 0; j < foo[i].length; j++) {
+			row[j] = foo[i][j];
+		}
+    	board[i] = row;
+	}
+	// TODO task 02.2 merge jenova.js here and verify result with JUnit test JenovaTest
+}
+]]>
+ -->
+		</lang:inline-script>
+	</lang:std>
+</beans>
