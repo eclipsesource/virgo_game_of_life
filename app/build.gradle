@@ -9,8 +9,7 @@ dockerizor {
 	maintainer = 'Florian Waibel <fwaibel@eclipsesource.com>'
     description = 'Virgo Game of Life (app) created with Gradle Plugin: com.eclipsesource.dockerizor'
 
-	// TODO task 07.1 search for official Java 8 image at https://hub.docker.com/
-	// javaImage = 'java:?'
+	javaImage = 'java:openjdk-8u72-jre'
  	hudsonJobName = '3.7.0.M02'
 
     createLocalCopy = true
@@ -44,6 +43,10 @@ dependencies {
 	repositoryExt group: "com.fasterxml.jackson.core", name: "jackson-annotations", version: '2.6.3'
 	repositoryExt group: "com.fasterxml.jackson.core", name: "jackson-databind", version: '2.6.4'
 
-	// TODO task 07.2 add all game-of-life bundles to repositoryUsr
-	// repositoryUsr project(':game-api')
+	repositoryUsr project(':game-api')
+	repositoryUsr project(':jenova')
+	repositoryUsr project(':game-engine')
+	repositoryUsr project(':commands')
+	repositoryUsr project(':client')
+	repositoryUsr project(':server')
 }

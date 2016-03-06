@@ -8,12 +8,8 @@
                            http://www.springframework.org/schema/context
                            http://www.springframework.org/schema/context/spring-context.xsd">
 
-<!-- 
-	TODO task 02.1 add id 'jenova' and specify the matching Java interface
- -->
-	<lang:std id="" engine="nashorn" script-interfaces="">
+	<lang:std id="jenova" engine="nashorn" script-interfaces="com.eclipsesource.examples.gol.api.GameOfLife">
 		<lang:inline-script>
-<!-- 
 <![CDATA[
 function next(foo) {
 	// mapping of some Java byte[][] to JS array
@@ -25,10 +21,30 @@ function next(foo) {
 		}
     	board[i] = row;
 	}
-	// TODO task 02.2 merge jenova.js here and verify result with JUnit test JenovaTest
+	var width = board[0].length,
+		newBoard = board.map(function(row, rowIndex) {
+			return row.map(function(cell, colIndex) {
+				var topRow = (rowIndex - 1) >= 0 ? (rowIndex - 1) : board.length - 1,
+					bottomRow = (rowIndex + 1) % board.length,
+					leftCol = (colIndex - 1) >= 0 ? (colIndex - 1) : width - 1,
+					rightCol = (colIndex + 1) % width,
+					neighbors = [
+						board[topRow][leftCol], board[topRow][colIndex], board[topRow][rightCol],
+						board[rowIndex][leftCol], board[rowIndex][rightCol],
+						board[bottomRow][leftCol], board[bottomRow][colIndex], board[bottomRow][rightCol]
+					],
+					neighborCount = neighbors.reduce(function(memo, neighbor) {
+						return memo + neighbor;
+					}, 0);
+				if (cell === 0) {
+					return neighborCount === 3 ? 1 : 0;
+				}
+				return (neighborCount === 2 || neighborCount === 3) ? 1 : 0;
+			});
+		});
+    return newBoard;
 }
 ]]>
- -->
 		</lang:inline-script>
 	</lang:std>
 </beans>

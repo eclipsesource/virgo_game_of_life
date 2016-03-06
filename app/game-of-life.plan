@@ -5,5 +5,10 @@
 					http://www.eclipse.org/virgo/schema/plan 
 					http://www.eclipse.org/virgo/schema/plan/eclipse-virgo-plan.xsd">
 
-	<!-- TODO task 07.3 add game-of-life bundles to Virgo plan file -->
+        <artifact type="bundle" name="com.eclipsesource.examples.gol.api" version="[0.1, 1)" />
+        <artifact type="bundle" name="com.eclipsesource.examples.gol.jenova" version="[0.1, 1)" />
+        <artifact type="bundle" name="com.eclipsesource.examples.gol.engine" version="[0.1, 1)" />
+        <artifact type="bundle" name="com.eclipsesource.examples.gol.commands" version="[0.1, 1)" />
+        <artifact type="bundle" name="com.eclipsesource.examples.gol.server" version="[0.1, 1)" />
+        <artifact type="bundle" name="com.eclipsesource.examples.gol.client" version="[0.1, 1)" />
 </plan>
