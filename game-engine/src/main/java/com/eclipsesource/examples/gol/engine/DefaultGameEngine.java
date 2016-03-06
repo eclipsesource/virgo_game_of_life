@@ -4,11 +4,17 @@ package com.eclipsesource.examples.gol.engine;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.PeriodicTrigger;
 import org.springframework.stereotype.Component;
+
+import com.eclipsesource.examples.gol.api.GameOfLife;
 
 @Component("gameEngine")
 public class DefaultGameEngine implements GameEngine {
@@ -19,7 +25,8 @@ public class DefaultGameEngine implements GameEngine {
 
 	private static final TimeUnit DEFAULT_TIME_UNIT = TimeUnit.MILLISECONDS;
 
-	// TODO task 03.1 autowire GameOfLife
+	@Autowired
+	private GameOfLife gameOfLife;
 
 	// TODO task 05.1 autowire EventAdmin
 
@@ -73,7 +80,7 @@ public class DefaultGameEngine implements GameEngine {
 	}
 
 	public int[][] next() {
-		// TODO task 03.3 calculate and store next generation of the board
+		this.board = gameOfLife.next(getCurrentBoard());
 		publishBoard();
 		return this.board;
 	}
@@ -97,7 +104,7 @@ public class DefaultGameEngine implements GameEngine {
 		// TODO task 05.3 post event "topic_userModifiedCell" and keys "x", "y"
 	}
 
-	// TODO task 03.2 start bean post construction
+	@PostConstruct
 	public void start() {
 		init(30, 20);
 		run();
@@ -109,7 +116,7 @@ public class DefaultGameEngine implements GameEngine {
 		this.taskScheduler.initialize();
 	}
 
-	// TODO task 03.4 shutdown bean pre destruction
+	@PreDestroy
 	public void shutdown() {
 		taskScheduler.shutdown();
 		taskScheduler = null;
