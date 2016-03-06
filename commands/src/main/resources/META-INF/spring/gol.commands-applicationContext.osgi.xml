@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                       http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd">
 
-	<!-- TODO task 04.1 reference OSGi service GameEngine -->
+	<osgi:reference id="gameEngine" interface="com.eclipsesource.examples.gol.engine.GameEngine" />
 
 	<osgi:service interface="org.eclipse.osgi.framework.console.CommandProvider">
 		<bean class="com.eclipsesource.examples.gol.commands.OsgiCommandProvider" autowire="constructor" />

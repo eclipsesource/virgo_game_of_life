@@ -8,9 +8,6 @@
                            http://www.springframework.org/schema/context
                            http://www.springframework.org/schema/context/spring-context.xsd">
 
-<!-- TODO task 03.5 enable component scan for base package of game engine -->
-<!-- 
-	<context:component-scan base-package="" />
- -->
+	<context:component-scan base-package="com.eclipsesource.examples.gol.engine" />
 
 </beans>

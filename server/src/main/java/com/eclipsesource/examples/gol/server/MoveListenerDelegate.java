@@ -1,11 +1,15 @@
 
 package com.eclipsesource.examples.gol.server;
 
+import java.util.Arrays;
+
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventHandler;
+
 import com.eclipsesource.examples.gol.MoveListener;
 import com.eclipsesource.examples.gol.web.Cell;
 
-// TODO task 05.6 implement "NOP" org.osgi.service.event.EventHandler
-public class MoveListenerDelegate implements MoveListener {
+public class MoveListenerDelegate implements MoveListener, EventHandler {
 
 	private MoveListener moveListener;
 
@@ -25,5 +29,11 @@ public class MoveListenerDelegate implements MoveListener {
 		if (moveListener != null) {
 			moveListener.toggle(cell);
 		}
+	}
+
+	@Override
+	public void handleEvent(Event event) {
+		System.out.println("Event arrived: " + event);
+		System.out.println("Available properties: " + Arrays.toString(event.getPropertyNames()));
 	}
 }

@@ -1,14 +1,24 @@
 
 package com.eclipsesource.examples.gol.engine;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventAdmin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.PeriodicTrigger;
 import org.springframework.stereotype.Component;
+
+import com.eclipsesource.examples.gol.api.GameOfLife;
 
 @Component("gameEngine")
 public class DefaultGameEngine implements GameEngine {
@@ -19,9 +29,11 @@ public class DefaultGameEngine implements GameEngine {
 
 	private static final TimeUnit DEFAULT_TIME_UNIT = TimeUnit.MILLISECONDS;
 
-	// TODO task 03.1 autowire GameOfLife
+	@Autowired
+	private GameOfLife gameOfLife;
 
-	// TODO task 05.1 autowire EventAdmin
+	@Autowired
+	private EventAdmin eventAdmin;
 
 	private ThreadPoolTaskScheduler taskScheduler;
 
@@ -73,13 +85,16 @@ public class DefaultGameEngine implements GameEngine {
 	}
 
 	public int[][] next() {
-		// TODO task 03.3 calculate and store next generation of the board
+		this.board = gameOfLife.next(getCurrentBoard());
 		publishBoard();
 		return this.board;
 	}
 
 	private void publishBoard() {
-		// TODO task 05.2 post event "topic_newBoard" with key="board" and payload board
+		Map<String, Object> eventProperties = new HashMap<>();
+		eventProperties.put("board", getCurrentBoard());
+		Event newBoardEvent = new Event("topic_newBoard", eventProperties);
+		eventAdmin.postEvent(newBoardEvent);
 	}
 
 	// Think about concurrent access
@@ -94,10 +109,14 @@ public class DefaultGameEngine implements GameEngine {
 	}
 
 	private void publishToggle(int x, int y) {
-		// TODO task 05.3 post event "topic_userModifiedCell" and keys "x", "y"
+		Map<String, Object> eventProperties = new HashMap<>();
+		eventProperties.put("x", x);
+		eventProperties.put("y", y);
+		Event newBoardEvent = new Event("topic_userModifiedCell", eventProperties);
+		eventAdmin.postEvent(newBoardEvent);
 	}
 
-	// TODO task 03.2 start bean post construction
+	@PostConstruct
 	public void start() {
 		init(30, 20);
 		run();
@@ -109,7 +128,7 @@ public class DefaultGameEngine implements GameEngine {
 		this.taskScheduler.initialize();
 	}
 
-	// TODO task 03.4 shutdown bean pre destruction
+	@PreDestroy
 	public void shutdown() {
 		taskScheduler.shutdown();
 		taskScheduler = null;
