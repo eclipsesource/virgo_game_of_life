@@ -17,6 +17,7 @@ ext.virgoProjects = [
 	project(':game-engine'),
 	project(':commands'),
 	project(':server'),
+	project(':client'),
 ]
 
 ext.dockerProjects = [

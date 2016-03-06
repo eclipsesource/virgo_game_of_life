@@ -1,0 +1,17 @@
+Bundle-Version: 0.1
+Bundle-Name: Game of Life Server
+Bundle-SymbolicName: com.eclipsesource.examples.gol.client
+Web-ContextPath: /client
+Bundle-ClassPath: .
+Import-Package: org.eclipse.virgo.web.dm,
+ org.springframework.web.servlet.config,
+ javax.servlet,
+ javax.servlet.http
+Import-Bundle: 
+ org.springframework.beans,
+ org.springframework.core,
+ org.springframework.context,
+ org.springframework.context.support,
+ org.springframework.expression,
+ org.springframework.web,
+ org.springframework.webmvc
