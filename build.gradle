@@ -21,6 +21,8 @@ ext.virgoProjects = [
 ]
 
 ext.dockerProjects = [
+	project(':runtime-only'),
+	project(':app'),
 ]
 
 configure(virgoProjects) {
