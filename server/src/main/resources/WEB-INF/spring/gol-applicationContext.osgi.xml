@@ -1,0 +1,21 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:osgi="http://www.springframework.org/schema/osgi"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+					http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+                      http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd">
+
+    <osgi:reference id="eventAdmin" interface="org.osgi.service.event.EventAdmin" />
+
+	<!-- TODO task 05.4 register bean moveListener as OSGi service EventHandler for "topic_newBoard" events -->
+	<!-- 
+	<osgi:service ref="" interface="">
+		<service-properties>
+			<entry key="event.topics" value="topic_newBoard" />
+		</service-properties>
+	</osgi:service>
+	 -->
+
+	<!-- TODO task 05.5 register bean moveListener as OSGi service EventHandler for "topic_userModifiedCell" events -->
+
+</beans>
