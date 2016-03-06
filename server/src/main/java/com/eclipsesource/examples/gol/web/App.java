@@ -1,6 +1,13 @@
 
 package com.eclipsesource.examples.gol.web;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventAdmin;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,12 +18,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller("app")
 public class App {
 
+	@Autowired
+	private EventAdmin eventAdmin;
+
 	/**
 	 * Handle client request "Update a Cell"
 	 */
-	// TODO task 06.1 add message mapping for "/updateCell"
+	@MessageMapping("/updateCell")
 	public void updateCell(Cell cell) throws Exception {
-		// TODO task 06.2 post event "topic_updateCell with "x" and "y" coords
+		Map<String, Object> updateCellProperties = new HashMap<>();
+		updateCellProperties.put("x", cell.col);
+		updateCellProperties.put("y", cell.row);
+		eventAdmin.postEvent(new Event("topic_updateCell", updateCellProperties));
 	}
 
 	/**

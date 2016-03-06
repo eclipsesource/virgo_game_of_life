@@ -7,15 +7,16 @@
 
     <osgi:reference id="eventAdmin" interface="org.osgi.service.event.EventAdmin" />
 
-	<!-- TODO task 05.4 register bean moveListener as OSGi service EventHandler for "topic_newBoard" events -->
-	<!-- 
-	<osgi:service ref="" interface="">
+	<osgi:service ref="moveListener" interface="org.osgi.service.event.EventHandler">
 		<service-properties>
 			<entry key="event.topics" value="topic_newBoard" />
 		</service-properties>
 	</osgi:service>
-	 -->
 
-	<!-- TODO task 05.5 register bean moveListener as OSGi service EventHandler for "topic_userModifiedCell" events -->
+	<osgi:service ref="moveListener" interface="org.osgi.service.event.EventHandler">
+		<service-properties>
+			<entry key="event.topics" value="topic_userModifiedCell" />
+		</service-properties>
+	</osgi:service>
 
 </beans>

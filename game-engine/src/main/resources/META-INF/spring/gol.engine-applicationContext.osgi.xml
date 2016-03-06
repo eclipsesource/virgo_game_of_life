@@ -5,11 +5,16 @@
 					http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
                       http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd">
 
-<!-- TODO task 03.6 reference OSGi service GameOfLife as bean with id jenova -->
-<!-- 
-	<osgi:reference id="" interface="" />
- -->
+	<osgi:reference id="jenova" interface="com.eclipsesource.examples.gol.api.GameOfLife" />
 
-<!-- TODO task 03.7 publish GameEngine as OSGi service -->
+	<osgi:service ref="gameEngine" interface="com.eclipsesource.examples.gol.engine.GameEngine" />
+
+    <osgi:reference id="eventAdmin" interface="org.osgi.service.event.EventAdmin" />
+
+	<osgi:service ref="gameEngine" interface="org.osgi.service.event.EventHandler">
+		<service-properties>
+			<entry key="event.topics" value="topic_updateCell" />
+		</service-properties>
+	</osgi:service>
 
 </beans>

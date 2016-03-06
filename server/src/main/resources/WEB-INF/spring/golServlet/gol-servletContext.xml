@@ -19,8 +19,10 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<!-- TODO task 06.6 Register stomp endpoint with sockjs support -->
-	<!-- application destination prefix "/app" -->
-	<!-- stomp endpoint "/ws" -->
-	<!-- simple broker prefix "/topic" -->
+	<websocket:message-broker application-destination-prefix="/app">
+		<websocket:stomp-endpoint path="/ws">
+			<websocket:sockjs />
+		</websocket:stomp-endpoint>
+		<websocket:simple-broker prefix="/topic" />
+	</websocket:message-broker>
 </beans>

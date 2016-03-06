@@ -4,6 +4,7 @@ package com.eclipsesource.examples.gol.web;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 import com.eclipsesource.examples.gol.MoveListener;
@@ -15,7 +16,8 @@ import com.eclipsesource.examples.gol.server.MoveListenerDelegate;
 @Component(value = "topic")
 public class Topic implements MoveListener {
 
-	// TODO task 06.3 auto wire SimpMessagingTemplate
+	@Autowired
+	private SimpMessagingTemplate template;
 
 	@Autowired
 	private MoveListener moveListener;
@@ -29,12 +31,12 @@ public class Topic implements MoveListener {
 
 	@Override
 	public void next(int[][] board) {
-		// TODO task 06.4 convert and send board to "topic/newBoard"
+		template.convertAndSend("/topic/newBoard", board);
 	}
 
 	@Override
 	public void toggle(Cell cell) {
-		// TODO task 06.5 convert and send cell to "topic/userModifiedCell"
+		template.convertAndSend("/topic/userModifiedCell", cell);
 	}
 
 }

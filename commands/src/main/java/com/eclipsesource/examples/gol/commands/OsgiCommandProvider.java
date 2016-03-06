@@ -84,7 +84,26 @@ public class OsgiCommandProvider implements CommandProvider {
 		return null;
 	}
 
-	// TODO task 04.2 implement OSGi command add [object_name] [x[,y]] - add object to the game
+	public Object _add(CommandInterpreter commandInterpreter) {
+		int col = 0;
+		int row = 0;
+		String objectName = "point";
+
+		String objectNameAsString = commandInterpreter.nextArgument();
+		if (objectNameAsString != null) {
+			objectName = objectNameAsString;
+		}
+		String colAsString = commandInterpreter.nextArgument();
+		if (colAsString != null) {
+			col = Integer.valueOf(colAsString);
+		}
+		String rowAsString = commandInterpreter.nextArgument();
+		if (rowAsString != null) {
+			row = Integer.valueOf(rowAsString);
+		}
+		gameEngine.addObject((int[][]) golPatterns.get(objectName), col, row);
+		return null;
+	}
 
 	public String getHelp() {
 		StringBuffer buffer = new StringBuffer();
@@ -96,6 +115,7 @@ public class OsgiCommandProvider implements CommandProvider {
 		buffer.append("toggle x,y - toggle a single field\n\t");
 		buffer.append("pause - pause the game\n\t");
 		buffer.append("reset - reset the game\n\t");
+		buffer.append("add [object_name] [x[,y]] - add object to the game\n"); // no tab at the end
 		return buffer.toString();
 	}
 }
