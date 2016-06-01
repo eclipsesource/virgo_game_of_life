@@ -19,8 +19,7 @@ Import-Bundle: org.springframework.aop,
  org.springframework.messaging,
  org.springframework.web,
  org.springframework.webmvc,
- org.springframework.websocket,
- com.springsource.javax.servlet.jsp.jstl
+ org.springframework.websocket
 Excluded-Imports: org.mockito,
  org.mockito.stubbing,
  org.mockito.verification,
