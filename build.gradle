@@ -7,7 +7,7 @@ buildscript {
 	}
 	dependencies {
 		classpath "gradle.plugin.org.eclipse.virgo.bundlor:bundlor-plugin:0.2"
-		classpath "gradle.plugin.com.eclipsesource.dockerizor:dockerizor:0.4"
+		classpath "gradle.plugin.com.eclipsesource.dockerizor:dockerizor:0.6.3"
 	}
 }
 
@@ -130,6 +130,48 @@ configure(virgoProjects) {
 		propertiesPath = new File("${project.buildDir}/bundlor-properties/gradle.properties")
 		inputPath = ext.bundlorInputPath
 		failOnWarnings = false
+	}
+}
+
+configure(dockerProjects) {
+	// add the build task 'clean'
+	apply plugin: 'base'
+	
+	// add the build task 'dockerize'
+	apply plugin: "com.eclipsesource.dockerizor"
+
+	repositories {
+		mavenCentral()
+	}
+
+	dockerizor {
+		maintainer = 'Florian Waibel <fwaibel@eclipsesource.com>'
+
+		javaImage = 'java:openjdk-8u91-jre'
+
+	 	hudsonJobName = '3.7.0.Milestones'
+		virgoFlavour = 'VTS'
+		virgoVersion = 'latest'
+
+		removeAdminConsole = false
+
+	    createLocalCopy = true
+
+	    postDockerizeHook = { task ->
+	        project.logger.info "Adding nashorn packages to configuration/java-server.profile"
+	        task.RUN "sed -i 's/org.xml.sax.helpers/org.xml.sax.helpers,\\\\\\n jdk.nashorn.api.scripting/' ${project.dockerizor.virgoHome}/configuration/java-server.profile"
+	        task.RUN "sed -i 's/ sun.*/ sun.*,\\\\\\n jdk.*/' ${project.dockerizor.virgoHome}/configuration/java-server.profile"
+	    }
+
+	    dockerize.dependsOn configurations.repositoryUsr
+	}
+
+	dependencies {
+	    endorsed files('libs/nashorn.jar')
+
+		repositoryExt group: "com.fasterxml.jackson.core", name: "jackson-core", version: jacksonCoreVersion
+		repositoryExt group: "com.fasterxml.jackson.core", name: "jackson-annotations", version: jacksonAnnotationsVersion
+		repositoryExt group: "com.fasterxml.jackson.core", name: "jackson-databind", version: jacksonDatabindVersion
 	}
 }
 

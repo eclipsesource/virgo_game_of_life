@@ -1,48 +1,17 @@
-// add the build task 'clean'
-apply plugin: 'base'
-
-// add the build task 'dockerize'
-apply plugin: "com.eclipsesource.dockerizor"
-
 dockerizor {
 	repository = 'game-of-life/app'
-	maintainer = 'Florian Waibel <fwaibel@eclipsesource.com>'
     description = 'Virgo Game of Life (app) created with Gradle Plugin: com.eclipsesource.dockerizor'
 
-	javaImage = 'java:openjdk-8u72-jre'
- 	hudsonJobName = '3.7.0.M02'
-
-    createLocalCopy = true
-
-	virgoFlavour = 'VTS'
-	virgoVersion = 'latest'
+	virgoHome = '/home/virgo/virgo-gol'
 
 	pickupFiles = ['game-of-life.plan']
 
 	// TODO task 07.3 BONUS enable OSGi console for hostname gol
 	// hostname = 'gol'
 	// enableUserRegionOsgiConsole = true
-
-	removeAdminConsole = false
-
-    postDockerizeHook = { task ->
-        project.logger.info "Adding nashorn packages to configuration/java-server.profile"
-        task.RUN "sed -i 's/org.xml.sax.helpers/org.xml.sax.helpers,\\\\\\n jdk.nashorn.api.scripting/' ${project.dockerizor.virgoHome}/configuration/java-server.profile"
-        task.RUN "sed -i 's/ sun.*/ sun.*,\\\\\\n jdk.*/' ${project.dockerizor.virgoHome}/configuration/java-server.profile"
-    }
-}
-
-repositories {
-	mavenCentral()
 }
 
 dependencies {
-    endorsed files('libs/nashorn.jar')
-
-	repositoryExt group: "com.fasterxml.jackson.core", name: "jackson-core", version: '2.6.4'
-	repositoryExt group: "com.fasterxml.jackson.core", name: "jackson-annotations", version: '2.6.3'
-	repositoryExt group: "com.fasterxml.jackson.core", name: "jackson-databind", version: '2.6.4'
-
 	repositoryUsr project(':game-api')
 	repositoryUsr project(':jenova')
 	repositoryUsr project(':game-engine')
