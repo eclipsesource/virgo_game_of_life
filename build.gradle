@@ -14,6 +14,7 @@ buildscript {
 ext.virgoProjects = [
 	project(':game-api'),
 	project(':jenova'),
+	project(':jenova-j2v8'),
 	project(':game-engine'),
 	project(':commands'),
 	project(':server'),

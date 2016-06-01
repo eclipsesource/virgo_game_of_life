@@ -1,0 +1,16 @@
+Bundle-Version: 0.1
+Bundle-Name: Game of Life (J2V8 implementation)
+Bundle-SymbolicName: com.eclipsesource.examples.gol.jenova.j2v8
+Import-Package: org.eclipse.gemini.blueprint.config
+Import-Bundle: org.springframework.aop,
+ org.springframework.beans,
+ org.springframework.core,
+ org.springframework.context,
+ org.springframework.context.support,
+ org.springframework.expression
+Excluded-Imports: org.mockito,
+ org.mockito.stubbing,
+ org.mockito.verification,
+ org.mockito.internal.verification,
+ org.hamcrest,
+ org.junit

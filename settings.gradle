@@ -1,1 +1,1 @@
-include 'game-api', 'jenova', 'game-engine', 'commands', 'server', 'client', 'runtime-only', 'app'
+include 'game-api', 'jenova', 'jenova-j2v8', 'game-engine', 'commands', 'server', 'client', 'runtime-only', 'app'
