@@ -12,16 +12,15 @@
 		<property name="gameOfLife" ref="jenova-j2v8" />
 	</bean>
 
-	<!-- TODO replace nashorn with J2V8 -->
-	<lang:std id="jenova-j2v8" engine="nashorn" script-interfaces="com.eclipsesource.examples.gol.jenova.j2v8.FlatGameOfLife">
+	<lang:std id="jenova-j2v8" engine="j2v8" script-interfaces="com.eclipsesource.examples.gol.jenova.j2v8.FlatGameOfLife">
 		<lang:inline-script>
 <![CDATA[
 function next(foo, rowLength, colLength) {
 	// mapping of int[] to two dimensional JS array
 	var board = []
-	for(var i = 0; i < rowLength; i++) {
+	for (var i = 0; i < colLength; i++) {
 		var row = [];
-		for(var j = 0; j < colLength; j++) {
+		for (var j = 0; j < rowLength; j++) {
 			row[j] = foo[i * rowLength + j];
 		}
     	board[i] = row;
@@ -49,10 +48,9 @@ function next(foo, rowLength, colLength) {
 		});
 	// mapping of two dimensional JS array to int[]
 	var result = []
-	for(var i = 0; i < rowLength; i++) {
-    	row = newBoard[i];
-		for(var j = 0; j < colLength; j++) {
-			result[i * rowLength + j] = row[j]
+	for (var i = 0; i < colLength; i++) {
+		for (var j = 0; j < rowLength; j++) {
+			result[i * rowLength + j] = newBoard[i][j];
 		}
 	}
     return result;

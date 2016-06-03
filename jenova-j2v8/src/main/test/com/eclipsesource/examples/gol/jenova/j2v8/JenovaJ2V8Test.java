@@ -24,14 +24,6 @@ public class JenovaJ2V8Test {
 	}
 
 	@Test
-	public void shouldProperlyComputeZeroGeneration() {
-		ApplicationContext ctx = new ClassPathXmlApplicationContext("/META-INF/spring/gol.jenova.j2v8-applicationContext.xml", getClass());
-		FlatGameOfLife jenova = (FlatGameOfLife) ctx.getBean("jenova-j2v8");
-
-		assertArrayEquals(new int[] { 0 }, jenova.next(new int[] { 0 }, 1, 1));
-	}
-
-	@Test
 	public void shouldProperlyComputeOneGeneration() {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("/META-INF/spring/gol.jenova.j2v8-applicationContext.xml", getClass());
 		FlatGameOfLife jenova = (FlatGameOfLife) ctx.getBean("jenova-j2v8");
@@ -67,4 +59,26 @@ public class JenovaJ2V8Test {
 
 		assertArrayEquals(expected, actual);
 	}
+
+    @Test
+    public void calculateNextGeneration() throws Exception {
+
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("/META-INF/spring/gol.jenova.j2v8-applicationContext.xml", getClass());
+		GameOfLife jenova = (GameOfLife) ctx.getBean("jenova");
+
+		int[][] initialBoard = new int[][] { //
+			 { 1, 0, 1, 0 }, //
+			 { 1, 0, 0, 0 }, //
+			 { 1, 0, 0, 0 } };
+
+		int[][] actual = jenova.next(initialBoard);
+
+		int[][] expected = new int[][] { //
+			 { 1, 0, 0, 0 }, //
+			 { 1, 0, 0, 0 }, //
+			 { 1, 0, 0, 0 } };
+
+		assertArrayEquals(expected, actual);
+    }
+
 }

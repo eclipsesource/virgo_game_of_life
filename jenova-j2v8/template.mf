@@ -14,3 +14,4 @@ Excluded-Imports: org.mockito,
  org.mockito.internal.verification,
  org.hamcrest,
  org.junit
+Bundle-Classpath: .,libs/j2v8_linux_arm64-4.1.1-SNAPSHOT.jar
